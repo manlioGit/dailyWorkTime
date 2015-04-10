@@ -21,3 +21,4 @@ $ ./sbt
 * http://docs.scala-lang.org/tutorials/scala-for-java-programmers.html
 * http://scalatra.org/2.4/guides/
 * http://eloquentjavascript.net/
+* https://rogerdudler.github.io/git-guide/
