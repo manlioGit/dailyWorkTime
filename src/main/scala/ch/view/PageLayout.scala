@@ -20,7 +20,7 @@ class PageLayout {
           meta(name:="description", content:=""),
           meta(name:="author", content:=""),
       
-          tags2.title()("SB Admin 2 - Bootstrap Admin Theme"),
+          tags2.title()("GmTechnologies"),
       
           link(href:="../css/bootstrap.min.css",rel:="stylesheet"),
           link(href:="../css/metisMenu.min.css",rel:="stylesheet"),

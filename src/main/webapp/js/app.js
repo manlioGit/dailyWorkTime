@@ -17,7 +17,7 @@ $(document).ready(function() {
 	});
 
 	$("#submitBtn").on('click', function() {
-		//alert("clicked!");
+
 		var title = $("option:selected").text();
 		if (title) {
 			var eventData = {
