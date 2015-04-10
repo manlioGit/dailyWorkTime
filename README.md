@@ -22,5 +22,5 @@ $ ./sbt
 * http://scalatra.org/2.4/guides/
 * http://eloquentjavascript.net/
 * https://rogerdudler.github.io/git-guide/
-** http://git.or.cz/course/svn.html
-** http://www.git-tower.com/blog/git-for-subversion-users-cheat-sheet/
+  * http://git.or.cz/course/svn.html
+  * http://www.git-tower.com/blog/git-for-subversion-users-cheat-sheet/
