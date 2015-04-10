@@ -18,3 +18,7 @@ $ ./sbt
 # to see browse to [http://localhost:8080/](http://localhost:8080/)
 
 ```
+## Useful reading ##
+* http://docs.scala-lang.org/tutorials/scala-for-java-programmers.html
+* http://scalatra.org/2.4/guides/
+* http://eloquentjavascript.net/
