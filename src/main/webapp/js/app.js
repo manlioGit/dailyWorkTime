@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+	  
 	var holidays = ['20150310', '20150319', '20150408'];
 
 	$('#timeForm').on('shown.bs.modal', function () {
