@@ -1,11 +1,20 @@
 # dailyWorkTime #
 
-## Build & Run ##
+## Build, Run, Import ##
 
 ```sh
 $ cd dailyWorkTime
-$ ./sbt #dependencies download, etc.
+$ # dependencies download, etc.
+$ ./sbt 
 ... 
-> eclipse  # generate specific file for eclipse project. Import as 'Existing Project into Workspace'
-> ~;container:start; container:reload / # compile polling, launch jetty. Browse to [http://localhost:8080/](http://localhost:8080/)
+# generate specific file for eclipse project
+> eclipse
+...
+# import project as 'Existing Project into Workspace'
+...
+# to launch application with compile polling  
+> ~;container:start; container:reload / 
+...
+# to see browse to [http://localhost:8080/](http://localhost:8080/)
+
 ```
