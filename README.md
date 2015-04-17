@@ -17,9 +17,9 @@ $ ./sbt -java-home /usr/lib/jvm/java-7-oracle
 * import project as 'Projects from git' -> Existing local repository -> ... Import existing projects ...
 * be sure to use java7 as JRE System Library
 
-### Javascript/JQuery Support ###
+##### Javascript/JQuery Support #####
 * right click on project -> configure -> Convert to Javascript project
-* install jsdt-jquery using [these instructions](https://code.google.com/a/eclipselabs.org/p/jsdt-jquery/wiki/Installation)
+* install jsdt-jquery using [these instructions](https://code.google.com/a/eclipselabs.org/p/jsdt-jquery/wiki/Installation), select version 2.1 of jquery library
 * exclude compile error of minified js files
   * right click on project -> javascript -> include path -> source tab 
   * edit 'Excluded' node and in 'Exclusion pattern' add src/main/webapp/js/*.min.js
