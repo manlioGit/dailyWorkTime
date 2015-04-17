@@ -1,21 +1,26 @@
 # dailyWorkTime #
 
-## Build, Run, Import ##
-* dependencies download, project set up
+## Project setup ##
 ```sh
+$ mkdir -p ~/git/trunk
+$ cd ~/git/trunk
+$ git clone https://github.com/GmTech/dailyWorkTime.git
 $ cd dailyWorkTime
-$ ./sbt 
+$ ./sbt -java-home /usr/lib/jvm/java-7-oracle
 ```
-* generate specific file for eclipse project
+
+## Eclipse setup ##
+* generate project file
 ```sh
 > eclipse
 ```
-* from eclipse -> import project as 'Existing Project into Workspace'
-* to launch application with compile polling
+* import project as 'Projects from git' -> Existing local repository -> ... Import existing projects ...
+
+## Launch application ##
 ```sh
-> ~;container:start; container:reload / 
+> ~;container:start; container:reload /
 ```
-* to see browse to [http://localhost:8080/](http://localhost:8080/)
+* browse to [http://localhost:8080/](http://localhost:8080/)
 
 ## Useful reading ##
 * http://docs.scala-lang.org/tutorials/scala-for-java-programmers.html
