@@ -15,6 +15,7 @@ $ ./sbt -java-home /usr/lib/jvm/java-7-oracle
 > eclipse
 ```
 * import project as 'Projects from git' -> Existing local repository -> ... Import existing projects ...
+* be sure to use java7 as JRE System Library
 
 ## Launch application ##
 ```sh
