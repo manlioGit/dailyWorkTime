@@ -28,7 +28,7 @@ $ ./sbt -java-home /usr/lib/jvm/java-7-oracle
 ```sh
 > ~;container:start; container:reload /
 ```
-* browse to [http://localhost:8080/]
+* browse to http://localhost:8080/
 
 ## Useful reading ##
 * http://docs.scala-lang.org/tutorials/scala-for-java-programmers.html
