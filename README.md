@@ -30,3 +30,4 @@ $ ./sbt -java-home /usr/lib/jvm/java-7-oracle
 * https://rogerdudler.github.io/git-guide/
   * http://git.or.cz/course/svn.html
   * http://www.git-tower.com/blog/git-for-subversion-users-cheat-sheet/
+* http://fullcalendar.io/docs/
