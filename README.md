@@ -19,7 +19,7 @@ $ ./sbt -java-home /usr/lib/jvm/java-7-oracle
 
 ### Javascript/JQuery Support ###
 * right click on project -> configure -> Convert to Javascript project
-* install jsdt-jquery using [https://code.google.com/a/eclipselabs.org/p/jsdt-jquery/wiki/Installation](these instructions)
+* install jsdt-jquery using (these instructions)[https://code.google.com/a/eclipselabs.org/p/jsdt-jquery/wiki/Installation]
 * exclude compile error of minified js files
   * right click on project -> javascript -> include path -> source tab 
   * edit 'Excluded' node and in 'Exclusion pattern' add src/main/webapp/js/*.min.js
@@ -28,7 +28,7 @@ $ ./sbt -java-home /usr/lib/jvm/java-7-oracle
 ```sh
 > ~;container:start; container:reload /
 ```
-* browse to [http://localhost:8080/](http://localhost:8080/)
+* browse to [http://localhost:8080/]
 
 ## Useful reading ##
 * http://docs.scala-lang.org/tutorials/scala-for-java-programmers.html
