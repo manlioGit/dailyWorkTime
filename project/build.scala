@@ -33,7 +33,9 @@ object DbBuild extends Build {
         "org.eclipse.jetty" % "jetty-plus" % "9.1.5.v20140505" % "compile;container;provided;test",
         "javax.servlet" % "javax.servlet-api" % "3.1.0",
       	"com.typesafe.slick" % "slick_2.11" % "2.1.0",
-      	"com.h2database" % "h2" % "1.4.181"
+      	"com.h2database" % "h2" % "1.4.181",
+        "org.scalatra" %% "scalatra-json" % "2.3.0",
+        "org.json4s"   %% "json4s-jackson" % "3.2.11"
       ),
       scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
         Seq(

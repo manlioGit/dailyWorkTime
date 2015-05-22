@@ -103,8 +103,6 @@ class PageLayout {
                         div(id:="calendar")
                       )
                    ),
-			 input(tpe:="hidden", id:="start"),
-			 input(tpe:="hidden", id:="end"),
                    div(cls:="modal", id:="timeForm", tabindex:="-1", role:="dialog", "aria-labelledby".attr:="myModalLabel", "aria-hidden".attr:="true")(
                      div(cls:="modal-dialog modal-sm")(
 		           div(cls:="modal-content")(

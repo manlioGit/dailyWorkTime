@@ -45,8 +45,6 @@ $(document).ready(function() {
 		
 		eventData.start = start;
 		eventData.end = end;
-//		$("#start").val(start);
-//		$("#end").val(end);
 	}
 	
 	$("#submitBtn").on('click', function() {

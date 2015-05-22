@@ -2,7 +2,7 @@ package ch.controller
 
 import org.scalatra._
 
-trait DbStack extends ScalatraServlet {
+trait MainStack extends ScalatraServlet {
 
   /* wire up the precompiled templates */
 //  override protected def defaultTemplatePath: List[String] = List("/WEB-INF/templates/views")

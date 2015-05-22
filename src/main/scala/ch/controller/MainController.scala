@@ -7,7 +7,7 @@ import scalatags.Text.all.stringFrag
 import scalatags.Text.tags2
 import ch.view.PageLayout
 
-class dbServlet extends DbStack {
+class MainController extends MainStack {
 
   get("/*") {
     contentType = "text/html"
