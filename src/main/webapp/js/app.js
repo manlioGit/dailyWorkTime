@@ -1,9 +1,11 @@
 $(document).ready(function() {
 	  
-	var holidays = ['20150310', '20150319', '20150408'];
+	var dayOffColor = '#f8f8f8';
 
 	var eventData = {};
 	var calendarHeader = {left: 'prev today', center: 'title', right: 'next'};
+	
+	var eventSources = [ { url: '/events/holiday', color: dayOffColor, textColor: 'black',  borderColor: 'black' } ];
 	
 	$('#timeForm').on('shown.bs.modal', function () {
   		$('#timeIn').focus();
@@ -23,12 +25,7 @@ $(document).ready(function() {
 		
 		var classValue = $(cell).attr('class');
 		if(classValue.contains("fc-sat") || classValue.contains("fc-sun")){
-			$(cell).css("background-color", "#f8f8f8");
-		}
-	
-		if($.inArray(date.format('YYYYMMDD'), holidays) >= 0){
-			$(cell).css("background-color", "#f8f8f8");
-			$(cell).text("Easter");
+			$(cell).css("background-color", dayOffColor);
 		}
 	}
 	
@@ -70,6 +67,7 @@ $(document).ready(function() {
 			fixedWeekCount: false,
 			dayRender: dayRender,
 	    	select: select,
+	    	eventSources: eventSources,
 		    selectable: true,
 			editable: true,
 			eventLimit: true
