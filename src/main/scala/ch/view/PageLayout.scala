@@ -23,7 +23,6 @@ class PageLayout {
           tags2.title()("GmTechnologies"),
       
           link(href:="../css/bootstrap.min.css",rel:="stylesheet"),
-          link(href:="../css/metisMenu.min.css",rel:="stylesheet"),
           link(href:="../css/sb-admin-2.css",rel:="stylesheet"),
           link(href:="../css/font-awesome.min.css",rel:="stylesheet",tpe:="text/css"),
           link(href:="../css/fullcalendar.min.css",rel:="stylesheet"),

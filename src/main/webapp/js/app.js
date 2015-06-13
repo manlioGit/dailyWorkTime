@@ -51,8 +51,9 @@ $(document).ready(function() {
 			
 			eventData.title = title;
 			eventData.color = "green";
-
-			$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+			$.post('/events/create', JSON.stringify(eventData), function(){
+				$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+			}, 'json');
 		}
 		$('#calendar').fullCalendar('unselect');
 
