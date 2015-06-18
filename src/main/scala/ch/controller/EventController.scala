@@ -4,7 +4,6 @@ import org.scalatra._
 import org.scalatra.json._
 import org.json4s._
 import org.json4s.JsonDSL._
-import ch.model.Tables
 import ch.model.Event
 import ch.model.User
 
@@ -22,10 +21,6 @@ class EventController extends MainStack with JacksonJsonSupport {
   }
   
   post("/create"){
-    Tables.initialize
-    val user = User("me").create
-    user.events << parsedBody.extract[Event]
-    user.save
-    Tables.cleanup
+   
   }
 }

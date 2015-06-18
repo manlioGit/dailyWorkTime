@@ -1,10 +1,14 @@
 package ch.model
 
-import com.github.aselab.activerecord._
-import ch.model.Role._
+//import slick.driver.H2Driver.simple._
+import slick.driver.H2Driver.api._
 
-case class User(var name: String) extends ActiveRecord {
-  lazy val events = hasMany[Event]
-  lazy val role = hasOne[Role]
+case class User(id: Option[Int] = None, name: String, role: String)
+
+class Users(tag: Tag) extends Table[User](tag, "USERS") {
+  def id = column[Int]("ID", O.PrimaryKey, O.AutoInc) // This is the primary key column
+  def name = column[String]("NAME")
+  def role = column[String]("ROLE")
+  
+  def * = (id.?, name, role) <> (User.tupled, User.unapply)
 }
-object User extends ActiveRecordCompanion[User]

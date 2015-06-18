@@ -1,9 +1,8 @@
 package ch.model
 
-import com.github.aselab.activerecord._
 
-case class Role(name: String) extends ActiveRecord {
-  lazy val user = belongsTo[User]
+object Role extends Enumeration {
+  type Role = Value
+  val NORMAL = Value("NORMAL")
+  val ADMIN = Value("ADMIN")
 }
-
-object Role extends ActiveRecordCompanion[Role]
