@@ -7,6 +7,7 @@ import org.scalatest.Inside
 import org.scalatest.Inspectors
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfterEach
+import org.scalatest.BeforeAndAfter
 
 abstract class TestSpec extends FunSuite with Matchers with
-  OptionValues with Inside with Inspectors with BeforeAndAfterEach 
+  OptionValues with Inside with Inspectors with BeforeAndAfterEach with BeforeAndAfter
