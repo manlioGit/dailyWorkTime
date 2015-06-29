@@ -2,10 +2,8 @@ package ch.model
 import org.scalatest._
 import conf.TestSpec
 import org.specs2.specification.BeforeEach
-//import slick.driver.H2Driver.api._
-import scala.slick.driver.H2Driver.simple._
-//import slick.jdbc.meta._
-
+import org.joda.time.DateTime
+import ch.model.data.Driver.simple._
 
 class ModelIntegrationSuite extends TestSpec {
 
@@ -15,7 +13,7 @@ class ModelIntegrationSuite extends TestSpec {
   implicit var session: Session = _
   
   before {
-    session = Database.forURL("jdbc:h2:mem:test1", driver = "org.h2.Driver").createSession()
+    session = Database.forConfig("h2mem1").createSession()
   }
   
   after {
@@ -26,13 +24,34 @@ class ModelIntegrationSuite extends TestSpec {
     (users.schema ++ events.schema).create	  
   }
   
-  test("interact with db"){
-    users.insert(User("name",Role.NORMAL.toString()))
-    users += User("other",Role.ADMIN.toString())
+  override def afterEach(){
+    (users.schema ++ events.schema).drop   
+  }
+ 
+  test("insert and retrieve users"){
+    users ++= List(
+        User("other",Role.ADMIN), 
+        User("name",Role.NORMAL)
+      )
 
-    val fromDb = users.filter(_.name === "other" ).run
-
-    assert(fromDb.head.role == Role.ADMIN.toString())
-    assert(users.list.size === 2)
+    val fromDb = users.sortBy(x => x.id).run
+    
+    assert(fromDb.head.role === Role.ADMIN)
+    assert(users.size.run === 2)
+  }
+  
+  test("user has some events"){
+    users += User("name", Role.NORMAL)
+    
+    val user = users.filter { u => u.name === "name" }.run.head
+    
+    events ++= List(
+    		Event("summerFestival", DateTime.now, DateTime.now, Some("http://"), user.id.get),
+        Event("summerParty", DateTime.now, DateTime.now, None, user.id.get)
+      )
+      
+    val eventFromDB = events.filter(e => e.title === "summerParty").run.head
+    
+    assert(eventFromDB.userId === user.id.get)
   }
 }
