@@ -54,4 +54,20 @@ class ModelIntegrationSuite extends TestSpec {
     
     assert(eventFromDB.userId === user.id.get)
   }
+  
+  test("user has some eventsXXX"){
+    users += User("name", Role.NORMAL)
+    
+    val user = users.filter { u => u.name === "name" }.run.head
+    
+    events ++= List(
+        Event("summerFestival", DateTime.now, DateTime.now, Some("http://"), user.id.get),
+        Event("summerParty", DateTime.now, DateTime.now, None, user.id.get)
+      )
+      
+    val eventFromDB = events.filter(e => e.title === "summerParty").run.head
+    
+    assert(eventFromDB.userId === user.id.get)
+  }
+  
 }

@@ -37,7 +37,8 @@ object DbBuild extends Build {
       	"com.h2database" % "h2" % "1.4.185",
         "org.scalatra" %% "scalatra-json" % "2.3.0",
         "org.json4s"   %% "json4s-jackson" % "3.2.11",
-        "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
+        "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
+        "org.scalatra" %% "scalatra-auth" % ScalatraVersion
       )
     )
   )
