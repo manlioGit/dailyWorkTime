@@ -7,5 +7,6 @@ class ScalatraBootstrap extends LifeCycle {
     System.setProperty("run.mode", "dev")
     context.mount(new MainController, "/pages/*")
     context.mount(new EventController, "/events/*")
+    context.mount(new UserController, "/user/*")
   }
 }

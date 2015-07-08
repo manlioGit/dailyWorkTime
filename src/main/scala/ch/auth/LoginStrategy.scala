@@ -23,4 +23,9 @@ class LoginStrategy (protected val app: ScalatraBase)
         None
       }
   }
+  
+  override def unauthenticated() 
+    (implicit request: HttpServletRequest, response: HttpServletResponse) {
+    app.redirect("/user/new")
+  }
 }
