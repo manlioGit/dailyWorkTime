@@ -5,6 +5,8 @@ import org.scalatra.auth.strategy.BasicAuthSupport
 import org.scalatra.ScalatraBase
 import ch.model.User
 import slick.lifted.TableQuery
+import ch.controller.Route
+
 
 trait AuthenticationSupport extends ScalatraBase
   with ScentrySupport[User] {
@@ -16,7 +18,7 @@ trait AuthenticationSupport extends ScalatraBase
 
     protected def requireLogin() = {
       if(!isAuthenticated) {
-        redirect("/user/new")
+        redirect(Route.LOGIN)
       }
     }
     

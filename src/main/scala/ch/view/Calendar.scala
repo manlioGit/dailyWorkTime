@@ -7,39 +7,15 @@ import scalatags.Text.all.stringFrag
 import scalatags.Text.tags2
 import scalatags.Text.all._
 import scala.xml._
+import ch.view.Header._
 
-class PageLayout {
+class Calendar {
   def build()={
-  //  val tags = 
-    html(lang:="en")(
-      head(
-        
-          meta(charset:="utf-8"),
-          meta(httpEquiv:="X-UA-Compatible",content:="IE:=edge"),
-          meta(name:="viewport",content:="width=device-width, initial-scale:=1"),
-          meta(name:="description", content:=""),
-          meta(name:="author", content:=""),
-      
-          tags2.title()("GmTechnologies"),
-      
-          link(href:="../css/bootstrap.min.css",rel:="stylesheet"),
-          link(href:="../css/sb-admin-2.css",rel:="stylesheet"),
-          link(href:="../css/font-awesome.min.css",rel:="stylesheet",tpe:="text/css"),
-          link(href:="../css/fullcalendar.min.css",rel:="stylesheet"),
-          link(href:="../css/app.css",rel:="stylesheet"),
-          
-          script(src:="../js/jquery.min.js"),
-          script(src:="../js/bootstrap.min.js"),
-          script(src:="../js/metisMenu.min.js"),
-          script(src:="../js/sb-admin-2.js"),
-          script(src:="../js/validator.min.js"),
-          script(src:="../js/moment.min.js"),
-          script(src:="../js/fullcalendar.min.js"),
-          script(src:="../js/app.js")
-      ),
-      
-      body(
-      
+    
+    new Layout("Calendar",
+        scripts("validator.min.js","moment.min.js","fullcalendar.min.js", "app.js"),
+        links("fullcalendar.min.css", "app.css")).
+      render(
           div(id:="wrapper")(
               tags2.nav(cls:="navbar navbar-default navbar-static-top",role:="navigation",style:="margin-bottom: 0")(
                   div(cls:="navbar-header")(
@@ -181,8 +157,6 @@ class PageLayout {
               )
            )
         )
-     )
-    
 //    new PrettyPrinter(80, 4).format(XML.loadString(tags.toString()))
   }
 }

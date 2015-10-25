@@ -5,13 +5,18 @@ import scalatags.Text.all.h1
 import scalatags.Text.all.html
 import scalatags.Text.all.stringFrag
 import scalatags.Text.tags2
-import ch.view.PageLayout
+import ch.view.Calendar
+import ch.auth.AuthenticationSupport
 
-class MainController extends MainStack {
+class PageController extends MainStack /*with AuthenticationSupport*/ {
 
+//  before(){
+//    requireLogin
+//  }
+  
   get("/*") {
     contentType = "text/html"
     
-    "<!DOCTYPE html>" + new PageLayout().build()
+    "<!DOCTYPE html>" + new Calendar().build()
   }
 }
