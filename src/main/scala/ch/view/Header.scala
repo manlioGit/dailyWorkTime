@@ -5,8 +5,8 @@ import scalatags.Text.all._
 object Header {
   
    def scripts(s:String*) :List[Tag] = {
-     (List("jquery.min.js","bootstrap.min.js","metisMenu.min.js", "sb-admin-2.js") ++ s).
-       map { s =>  script(src:=s"../js/${s}") }
+     (List("jquery.min","bootstrap.min","metisMenu.min", "validator.min", "sb-admin-2") ++ s).
+       map { s =>  script(src:=s"../js/${s}.js") }
    }
    
    def links(s:String*) : List[Tag] = {

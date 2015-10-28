@@ -3,7 +3,7 @@ package ch.model
 import ch.model.data.Driver.simple._
 import ch.model.Role._
 
-case class User(name: String, role: Role, id: Option[Int] = None)
+case class User(name: String, role: Role, pwd: String, id: Option[Int] = None)
 
 class Users(tag: Tag) extends Table[User](tag, "USERS") {
   
@@ -15,6 +15,7 @@ class Users(tag: Tag) extends Table[User](tag, "USERS") {
   def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
   def name = column[String]("NAME")
   def role = column[Role]("ROLE")
+  def pwd = column[String]("PWD")
   
-  def * = (name, role, id.?) <> (User.tupled, User.unapply)
+  def * = (name, role, pwd, id.?) <> (User.tupled, User.unapply)
 }

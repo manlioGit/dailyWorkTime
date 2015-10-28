@@ -17,6 +17,6 @@ class PageController extends MainStack /*with AuthenticationSupport*/ {
   get("/*") {
     contentType = "text/html"
     
-    "<!DOCTYPE html>" + new Calendar().build()
+    "<!DOCTYPE html>" + new Calendar(params("user")).build()
   }
 }

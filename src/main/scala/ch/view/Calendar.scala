@@ -9,11 +9,11 @@ import scalatags.Text.all._
 import scala.xml._
 import ch.view.Header._
 
-class Calendar {
+class Calendar(username :String) {
   def build()={
     
     new Layout("Calendar",
-        scripts("validator.min.js","moment.min.js","fullcalendar.min.js", "app.js"),
+        scripts("moment.min","fullcalendar.min", "app"),
         links("fullcalendar.min.css", "app.css")).
       render(
           div(id:="wrapper")(
@@ -31,7 +31,7 @@ class Calendar {
                       li(cls:="dropdown")(
                           a(cls:="dropdown-toggle",data("toggle"):="dropdown",href:="#")(
                               i(cls:="fa fa-user fa-fw"),
-                              ("name surname"),
+                              (username),
                               i(cls:="fa fa-caret-down")
                           ),
                           ul(cls:="dropdown-menu dropdown-user")(
@@ -124,11 +124,11 @@ class Calendar {
 		                  fieldset(
 		                    div(cls:="form-group")(
 		                      label("Event Type:"),
-					    select(cls:="form-control")(
-					    	option("Holiday"),
-					    	option("Illness"),
-					    	option("Permission")					
-					    )
+              					    select(cls:="form-control")(
+              					    	option("Holiday"),
+              					    	option("Illness"),
+              					    	option("Permission")					
+              					    )
 		                    ),
 		                    div(cls:="form-group")(
 		                      input(cls:="form-control", disabled:="", placeholder:="Hour in: hh:mm", name:="timeIn")
@@ -143,7 +143,7 @@ class Calendar {
 		                      button(tpe:="button", cls:="btn btn-default btn-circle",data("dismiss"):="modal")(
 		                        i(cls:="fa fa-times")
 		                      ),
-					    button(tpe:="button", id:="toTimeFormBtn", cls:="btn btn-danger btn-circle")(
+					                button(tpe:="button", id:="toTimeFormBtn", cls:="btn btn-danger btn-circle")(
 		                        i(cls:="fa fa-angle-double-left")
 		                      )
 		                    )
