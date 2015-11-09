@@ -8,6 +8,7 @@ import scalatags.Text.tags2
 import scalatags.Text.all._
 import scala.xml._
 import ch.view.Header._
+import ch.controller.Route
 
 class Calendar(username :String) {
   def build()={
@@ -43,7 +44,7 @@ class Calendar(username :String) {
                               ),
                               li(cls:="divider"),
                               li(
-                                  a(href:="login.html")(
+                                  a(href:=s"${Route.LOGOUT}")(
                                       i(cls:="fa fa-sign-out fa-fw"),
                                       ("Logout")
                                   )
@@ -70,7 +71,7 @@ class Calendar(username :String) {
                   div(cls:="container-fluid")(
                       div(cls:="row")(
                         div(cls:="col-lg-12")(
-                          h1(cls:="page-header")("Blank")
+                          h1(cls:="page-header") //("Blank")
                         )
                       ),
                    div(cls:="row")(

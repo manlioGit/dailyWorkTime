@@ -7,16 +7,21 @@ import scalatags.Text.all.stringFrag
 import scalatags.Text.tags2
 import ch.view.Calendar
 import ch.auth.AuthenticationSupport
+import ch.model.data.Driver.simple._
+import ch.model.Users
 
-class PageController extends MainStack /*with AuthenticationSupport*/ {
+class PageController(implicit session :Session) extends MainStack {
 
-//  before(){
-//    requireLogin
-//  }
+  before(){
+    requireLogin
+//    if(!isAuthenticated) {
+//      scentry.authenticate("Cookie")
+//    }
+  }
   
   get("/*") {
     contentType = "text/html"
     
-    "<!DOCTYPE html>" + new Calendar(params("user")).build()
+    "<!DOCTYPE html>" + new Calendar(user.name).build()
   }
 }

@@ -6,11 +6,16 @@ import org.json4s._
 import org.json4s.JsonDSL._
 import ch.model.Event
 import ch.model.User
+import ch.model.data.Driver.simple._
 
-class EventController extends MainStack with JacksonJsonSupport {
+class EventController(implicit session: Session) extends MainStack with JacksonJsonSupport {
   
   implicit val jsonFormats = DefaultFormats
 
+   before(){
+    requireLogin
+  }
+  
   get("/holiday") {
     val holidayJson = JArray(List(
         ("title" -> "xxx") ~

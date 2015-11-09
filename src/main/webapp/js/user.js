@@ -10,9 +10,11 @@ $(document).ready(function() {
 		}
 	);
 	
-	$( "input[type='password']:last").attr({
-		  "data-match": "#pwdToMatch",
-		  "data-match-error": "Whoops, these don't match"
-		}
-	);
+	if($( "input[type='password']").length > 1){
+		$( "input[type='password']:last").attr({
+			  "data-match": "#pwdToMatch",
+			  "data-match-error": "Whoops, these don't match"
+			}
+		);
+	}
 });

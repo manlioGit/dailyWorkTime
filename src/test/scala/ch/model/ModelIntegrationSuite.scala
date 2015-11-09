@@ -7,13 +7,10 @@ import ch.model.data.Driver.simple._
 
 class ModelIntegrationSuite extends TestSpec {
 
-  val users = TableQuery[Users]
-  val events = TableQuery[Events]
-  
   implicit var session: Session = _
   
   before {
-    session = Database.forConfig("h2mem1").createSession()
+    session = Database.forConfig("test").createSession()
   }
   
   after {
@@ -21,53 +18,43 @@ class ModelIntegrationSuite extends TestSpec {
   }
   
   override def beforeEach(){
-    (users.schema ++ events.schema).create	  
+    (Users.table.schema ++ Events.table.schema).create	  
   }
   
   override def afterEach(){
-    (users.schema ++ events.schema).drop   
+    (Users.table.schema ++ Events.table.schema).drop   
   }
  
   test("insert and retrieve users"){
-    users ++= List(
-        User("other",Role.ADMIN), 
-        User("name",Role.NORMAL)
+    Users.table ++= List(
+        User("other", Role.ADMIN, ""), 
+        User("name", Role.NORMAL, "")
       )
 
-    val fromDb = users.sortBy(x => x.id).run
+    val fromDb = Users.table.sortBy(x => x.id).run
     
     assert(fromDb.head.role === Role.ADMIN)
-    assert(users.size.run === 2)
+    assert(Users.table.size.run === 2)
   }
   
   test("user has some events"){
-    users += User("name", Role.NORMAL)
+    Users.table += User("name", Role.NORMAL, "")
     
-    val user = users.filter { u => u.name === "name" }.run.head
+    val user = Users.where( u => u.name === "name").head
     
-    events ++= List(
+    Events.table ++= List(
     		Event("summerFestival", DateTime.now, DateTime.now, Some("http://"), user.id.get),
         Event("summerParty", DateTime.now, DateTime.now, None, user.id.get)
       )
       
-    val eventFromDB = events.filter(e => e.title === "summerParty").run.head
+    val eventFromDB = Events.where(e => e.title === "summerParty").head
     
     assert(eventFromDB.userId === user.id.get)
   }
   
-  test("user has some eventsXXX"){
-    users += User("name", Role.NORMAL)
+  test("find by id"){
+    val user = Users.create(User("name", Role.NORMAL, ""))
     
-    val user = users.filter { u => u.name === "name" }.run.head
-    
-    events ++= List(
-        Event("summerFestival", DateTime.now, DateTime.now, Some("http://"), user.id.get),
-        Event("summerParty", DateTime.now, DateTime.now, None, user.id.get)
-      )
-      
-    val eventFromDB = events.filter(e => e.title === "summerParty").run.head
-    
-    assert(eventFromDB.userId === user.id.get)
+    Users.where( _.id === user.id.get ).head
   }
-  
 }

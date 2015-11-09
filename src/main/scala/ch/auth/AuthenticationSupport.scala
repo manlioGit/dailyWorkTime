@@ -6,29 +6,38 @@ import org.scalatra.ScalatraBase
 import ch.model.User
 import slick.lifted.TableQuery
 import ch.controller.Route
+import ch.model.data.Driver.simple._
+import ch.model.Users
+import scala.util.Try
 
 
 trait AuthenticationSupport extends ScalatraBase
   with ScentrySupport[User] {
     self: ScalatraBase =>
+
+    implicit protected var connection: Session = _
+    
     protected val scentryConfig = (new ScentryConfig {}).asInstanceOf[ScentryConfiguration]
 
-    protected def fromSession = { case id: String => null }
-    protected def toSession   = { case usr: User => usr.id.toString }
+    protected def fromSession = { case id: String => Users.where( _.id === id.toInt).head }
 
+    protected def toSession   = { case usr: User => usr.id.get.toString }
+
+    
     protected def requireLogin() = {
       if(!isAuthenticated) {
         redirect(Route.LOGIN)
       }
     }
-    
+      
     override protected def configureScentry = {
-      scentry.unauthenticated {
-        scentry.strategies("UserPassword").unauthenticated()
-      }
+      scentry.unauthenticated { scentry.strategies("Login").unauthenticated()}
+//      scentry.unauthenticated { scentry.strategies("Cookie").unauthenticated()}
     }
     
     override protected def registerAuthStrategies = {
-      scentry.register("UserPassword", app => new LoginStrategy(app))
+     
+      scentry.register("Login", app => new LoginStrategy(app))
+//      scentry.register("Cookie", app => new CookieStrategy(app))
     }
 }

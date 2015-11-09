@@ -6,6 +6,14 @@ import org.joda.time.DateTime
 
 case class Event(title: String, start: DateTime, end:DateTime, url: Option[String],userId: Int, id: Option[Int] = None)
 
+object Events {
+   val table = TableQuery[Events]
+   
+    def where(f: Events => Rep[Boolean])(implicit session: Session) = {
+     table.filter { f }.run 
+  }
+}
+
 class Events(tag: Tag) extends Table[Event](tag, "EVENTS") {
   
   implicit val dateMapper = MappedColumnType.base[DateTime, Date] (

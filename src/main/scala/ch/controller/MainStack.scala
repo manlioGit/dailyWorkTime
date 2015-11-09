@@ -1,24 +1,13 @@
 package ch.controller
 
 import org.scalatra._
+import ch.auth.AuthenticationSupport
+import ch.model.data.Driver.simple._
 
-trait MainStack extends ScalatraServlet {
+abstract class MainStack(implicit session :Session) extends ScalatraServlet with AuthenticationSupport {
 
-  /* wire up the precompiled templates */
-//  override protected def defaultTemplatePath: List[String] = List("/WEB-INF/templates/views")
-//  override protected def createTemplateEngine(config: ConfigT) = {
-//    val engine = super.createTemplateEngine(config)
-//    engine.layoutStrategy = new DefaultLayoutStrategy(engine,
-//      TemplateEngine.templateTypes.map("/WEB-INF/templates/layouts/default." + _): _*)
-//    engine.packagePrefix = "templates"
-//    engine
-//  }
-  /* end wiring up the precompiled templates */
-
-//  override protected def templateAttributes(implicit request: HttpServletRequest): mutable.Map[String, Any] = {
-//    super.templateAttributes ++ mutable.Map.empty // Add extra attributes here, they need bindings in the build file
-//  }
-
+  connection = session
+  
   notFound {
     // remove content type in case it was set through an action
     contentType = null

@@ -17,7 +17,7 @@ class LoginForm(dataGroup:List[String], refs:Map[String, String], act:String) {
            },
            div(cls:="checkbox")(
                label(
-                   input(name:="remember", tpe:="checkbox", value:="Remember Me")("Remember Me")
+                   input(name:="remember", tpe:="checkbox", value:="remember")("Remember Me")
                )
            ),
            refs.map { case (k,v) =>
