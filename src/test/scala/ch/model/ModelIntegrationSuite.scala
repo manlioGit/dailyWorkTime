@@ -1,30 +1,20 @@
 package ch.model
 import org.scalatest._
-import conf.TestSpec
-import org.specs2.specification.BeforeEach
+import ch.TestSupport
 import org.joda.time.DateTime
 import ch.model.data.Driver.simple._
+import org.scalatra.test.scalatest.ScalatraSuite
+ 
+class ModelIntegrationSuite extends TestSupport {
 
-class ModelIntegrationSuite extends TestSpec {
-
-  implicit var session: Session = _
-  
-  before {
-    session = Database.forConfig("test").createSession()
-  }
-  
-  after {
-    session.close()
-  }
-  
   override def beforeEach(){
     (Users.table.schema ++ Events.table.schema).create	  
   }
-  
+    
   override def afterEach(){
     (Users.table.schema ++ Events.table.schema).drop   
   }
- 
+  
   test("insert and retrieve users"){
     Users.table ++= List(
         User("other", Role.ADMIN, ""), 
@@ -55,6 +45,8 @@ class ModelIntegrationSuite extends TestSpec {
   test("find by id"){
     val user = Users.create(User("name", Role.NORMAL, ""))
     
-    Users.where( _.id === user.id.get ).head
+    val fromDb = Users.where( _.id === user.id.get ).head
+    
+    assert(user === fromDb)
   }
 }
