@@ -39,8 +39,8 @@ class UserController(implicit session:Session) extends MainStack {
   
   post(s"/${Keys.REGISTER}") {
 
-    val user = User(params("username"), Role.NORMAL, hashOf(params("password")));
-
+    Users.create(User(params("username"), Role.NORMAL, hashOf(params("password"))))
+    
     redirect(s"/pages/index.html")
   }
 }
