@@ -6,12 +6,12 @@ import scalatags.Text.tags2
 import scala.xml.Elem
 import scala.xml.XML
 import ch.view.Header._
-import ch.controller.Keys
+import ch.controller.Route._
 
 class UserView(title: String, data: List[String], refs:Map[String,String]) {
    
   def render()={
-    new Layout(title, scripts(Keys.USER), links()).render(
+    new Layout(title, scripts(USER), links()).render(
         div(cls:="container")(
             div(cls:="row")(
                 div(cls:="col-md-4 col-md-offset-4")(

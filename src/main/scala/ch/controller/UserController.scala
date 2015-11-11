@@ -7,40 +7,40 @@ import ch.model.Role
 import ch.model.data.Driver.simple._
 import ch.model.Users
 import ch.auth.Util._
+import ch.controller.Route._
 
 class UserController(implicit session:Session) extends MainStack {
   
 	before() {
     contentType = "text/html"
   }
-  
-  
-  post(s"/${Keys.LOGIN}") {
+ 
+  post(Route(LOGIN)) {
     scentry.authenticate()
     if (isAuthenticated) {
-      redirect("/pages")
+      redirect(Route(CALENDAR))
     } else {
-      redirect(Route.LOGIN)
+      redirect(Route(USER, LOGIN))
     }
   }
   
-  get(s"/${Keys.LOGIN}") {
-    new UserView(Keys.LOGIN, List("Username", "Password"), Map( "success" -> Keys.LOGIN, "primary" -> Keys.REGISTER)).render()
+  get(Route(LOGIN)) {
+    new UserView(LOGIN, List("Username", "Password"), Map( "success" -> LOGIN, "primary" -> REGISTER)).render()
   }
   
-   get(s"/${Keys.LOGOUT}") {
+  get(Route(LOGOUT)) {
     scentry.logout()
-    redirect(Route.LOGIN)
+    redirect(Route(USER, LOGIN))
   }
   
-  get(s"/${Keys.REGISTER}") {
-    new UserView(Keys.REGISTER, List("Username", "Password", "Password (re-type)"), Map( "success" -> Keys.REGISTER)).render()
+  get(Route(REGISTER)) {
+    new UserView(REGISTER, List("Username", "Password", "Password (re-type)"), Map( "success" -> REGISTER)).render()
   }
   
-  post(s"/${Keys.REGISTER}") {
+  post(Route(REGISTER)) {
     
     Users.create(User(params("username"), Role.NORMAL, hashOf(params("password"))))
     
-    redirect(s"/pages/index.html")
+    redirect(Route(USER,LOGIN))
   }
 }

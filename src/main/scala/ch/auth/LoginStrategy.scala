@@ -5,6 +5,7 @@ import javax.servlet.http.{HttpServletResponse, HttpServletRequest}
 import org.scalatra.auth.ScentryStrategy
 import ch.model.User
 import ch.controller.Route
+import ch.controller.Route._
 import ch.model.Users
 import ch.model.data.Driver.simple._
 
@@ -36,6 +37,6 @@ class LoginStrategy (protected val app: ScalatraBase)
   
   override def unauthenticated() 
     (implicit request: HttpServletRequest, response: HttpServletResponse) {
-      app.redirect(Route.LOGIN)
+    app.redirect(Route(USER, LOGIN))
   }
 }

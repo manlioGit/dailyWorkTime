@@ -9,6 +9,7 @@ import scalatags.Text.all._
 import scala.xml._
 import ch.view.Header._
 import ch.controller.Route
+import ch.controller.Route._
 
 class Calendar(username :String) {
   def build()={
@@ -44,7 +45,7 @@ class Calendar(username :String) {
                               ),
                               li(cls:="divider"),
                               li(
-                                  a(href:=s"${Route.LOGOUT}")(
+                                  a(href:= Route(USER, LOGOUT) )(
                                       i(cls:="fa fa-sign-out fa-fw"),
                                       ("Logout")
                                   )

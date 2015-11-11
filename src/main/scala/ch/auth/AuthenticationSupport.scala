@@ -6,6 +6,7 @@ import org.scalatra.ScalatraBase
 import ch.model.User
 import slick.lifted.TableQuery
 import ch.controller.Route
+import ch.controller.Route._
 import ch.model.data.Driver.simple._
 import ch.model.Users
 import scala.util.Try
@@ -26,7 +27,7 @@ trait AuthenticationSupport extends ScalatraBase
     
     protected def requireLogin() = {
       if(!isAuthenticated) {
-        redirect(Route.LOGIN)
+        redirect(Route(USER,LOGIN))
       }
     }
       
