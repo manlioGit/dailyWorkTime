@@ -14,9 +14,6 @@ class PageController(implicit session :Session) extends MainStack {
 
   before(){
     requireLogin
-//    if(!isAuthenticated) {
-//      scentry.authenticate("Cookie")
-//    }
   }
   
   get("/*") {

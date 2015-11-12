@@ -4,7 +4,7 @@ import ch.model.data.Driver.simple._
 import ch.model.Role._
 import slick.lifted.CanBeQueryCondition
 
-case class User(name: String, role: Role, pwd: String, id: Option[Int] = None)
+case class User(name: String, var role: Role = Role.NORMAL.value, pwd: String, var session: String = "", id: Option[Int] = None)
 
 object Users { 
   
@@ -14,8 +14,16 @@ object Users {
      (table returning table.map(_.id) into ((user,id) => user.copy(id=Some(id)))) += user
   }
   
-  def where(f: Users => Rep[Boolean])(implicit session: Session) = {
+  def retrieve(f: Users => Rep[Boolean])(implicit session: Session) = {
      table.filter { f }.run 
+  }
+  
+  def update(user: User)(implicit session: Session) = {
+    table.filter( _.id === user.id.get ).update(user).run
+  }
+
+  def delete(user: User)(implicit session: Session) = {
+    table.filter( _.id === user.id.get ).delete.run
   }
 }
 
@@ -30,7 +38,8 @@ class Users(tag: Tag) extends Table[User](tag, "USERS") {
   def name = column[String]("NAME")
   def role = column[Role]("ROLE")
   def pwd = column[String]("PWD")
+  def session = column[String]("SESSION")
   
-  def * = (name, role, pwd, id.?) <> (User.tupled, User.unapply)
+  def * = (name, role, pwd, session,  id.?) <> (User.tupled, User.unapply)
 }
 

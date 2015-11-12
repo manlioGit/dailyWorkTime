@@ -13,7 +13,10 @@ class EventController(implicit session: Session) extends MainStack with JacksonJ
   implicit val jsonFormats = DefaultFormats
 
    before(){
-    requireLogin
+//    requireLogin
+    if(!isAuthenticated) {
+      scentry.authenticate("Cookie")
+    }
   }
   
   get("/holiday") {

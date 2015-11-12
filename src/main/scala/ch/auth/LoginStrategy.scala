@@ -21,7 +21,7 @@ class LoginStrategy (protected val app: ScalatraBase)
   def authenticate()
     (implicit request: HttpServletRequest, response: HttpServletResponse) = {
     
-    val user = Users.where( u => (u.name === username && u.pwd === Util.hashOf(password)))
+    val user = Users.retrieve( u => (u.name === username && u.pwd === Util.hashOf(password)))
     
     if(user.isEmpty){
       None

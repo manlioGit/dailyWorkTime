@@ -8,6 +8,8 @@ import ch.controller.Route
 import org.scalatra.CookieOptions
 import ch.model.data.Driver.simple._
 import ch.model.Users
+import ch.auth.Util._
+import org.joda.time.DateTime
 
 class CookieStrategy(protected val app: ScalatraBase)
     (implicit request: HttpServletRequest,
@@ -27,9 +29,14 @@ class CookieStrategy(protected val app: ScalatraBase)
   }
   
   def authenticate()(implicit request: HttpServletRequest,response: HttpServletResponse) = {
-    if(tokenVal == "manlio") 
-      Some(Users.where(_.name === "manlio").head)
-    else None
+    val user = Users.retrieve(_.session === tokenVal)
+    
+    if(user.isEmpty){
+      None
+    }
+    else {
+      Some(user.head)
+    }
   }
   
   override def unauthenticated()(implicit request: HttpServletRequest, response: HttpServletResponse) {
@@ -43,14 +50,26 @@ class CookieStrategy(protected val app: ScalatraBase)
     if (winningStrategy == name || (winningStrategy == "Login" && checkbox2boolean(app.params.get("remember").
             getOrElse("").toString))) {
         
+      
+        user.session = randomFrom(s"${user.name}${DateTime.now()}" )
+        
+        Users.update(user)
+        
         app.cookies.
-        set(CookieKey, user.name)(CookieOptions( maxAge = oneMonth, path = "/"))
+          set(CookieKey, user.session)(CookieOptions( maxAge = oneMonth, path = "/"))
       }
     }
   
-    /**
-    * Used to easily match a checkbox value
-    */
+    override def beforeLogout(user: User)
+      (implicit request: HttpServletRequest,
+      response: HttpServletResponse) = {
+        if(user != null){
+          user.session = ""
+          Users.update(user)
+        }
+        app.cookies.delete(CookieKey)(CookieOptions(path = "/"))
+    }
+
     private def checkbox2boolean(s: String): Boolean = {
       List("yes", "y", "1", "true").contains(s) 
     }

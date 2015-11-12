@@ -20,7 +20,7 @@ trait AuthenticationSupport extends ScalatraBase
     
     protected val scentryConfig = (new ScentryConfig {}).asInstanceOf[ScentryConfiguration]
 
-    protected def fromSession = { case id: String => Users.where( _.id === id.toInt).head }
+    protected def fromSession = { case id: String => Users.retrieve( _.id === id.toInt).head }
 
     protected def toSession   = { case usr: User => usr.id.get.toString }
 
@@ -33,12 +33,12 @@ trait AuthenticationSupport extends ScalatraBase
       
     override protected def configureScentry = {
       scentry.unauthenticated { scentry.strategies("Login").unauthenticated()}
-//      scentry.unauthenticated { scentry.strategies("Cookie").unauthenticated()}
+      scentry.unauthenticated { scentry.strategies("Cookie").unauthenticated()}
     }
     
     override protected def registerAuthStrategies = {
      
       scentry.register("Login", app => new LoginStrategy(app))
-//      scentry.register("Cookie", app => new CookieStrategy(app))
+      scentry.register("Cookie",app => new CookieStrategy(app))
     }
 }
