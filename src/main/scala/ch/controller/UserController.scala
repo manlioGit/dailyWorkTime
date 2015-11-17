@@ -14,7 +14,7 @@ class UserController(implicit session:Session) extends MainStack {
 	before() {
     contentType = "text/html"
   }
- 
+  
   post(Route(LOGIN)) {
     scentry.authenticate()
     if (isAuthenticated) {
@@ -25,6 +25,13 @@ class UserController(implicit session:Session) extends MainStack {
   }
   
   get(Route(LOGIN)) {
+    if(!isAuthenticated) {
+      scentry.authenticate("Cookie")
+    }
+    if(isAuthenticated) {
+      redirect(Route(CALENDAR))
+    } 
+   
     new UserView(LOGIN, List("Username", "Password"), Map( "success" -> LOGIN, "primary" -> REGISTER)).render()
   }
   

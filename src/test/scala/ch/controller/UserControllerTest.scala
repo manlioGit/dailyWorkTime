@@ -6,7 +6,7 @@ import org.scalatest.FunSuiteLike
 import ch.model.data.Driver.simple._
 import ch.model._
 import ch.controller.Route._
-
+ 
 class UserControllerTest extends TestSupport with ScalatraSuite {
   
   addServlet(new UserController()(session), "/user/*")
@@ -15,7 +15,7 @@ class UserControllerTest extends TestSupport with ScalatraSuite {
 	override def beforeEach(){
     (Users.table.schema ++ Events.table.schema).create	  
   }
-    
+  
   override def afterEach(){
     (Users.table.schema ++ Events.table.schema).drop   
   }

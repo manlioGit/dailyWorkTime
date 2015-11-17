@@ -9,4 +9,6 @@ object Route {
   val LOGOUT = "logout"
   val REGISTER = "register"
   val CALENDAR = "pages"
+  val EVENT = "events"
+  val CREATE = "create"
 }

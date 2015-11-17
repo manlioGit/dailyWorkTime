@@ -24,16 +24,14 @@ trait AuthenticationSupport extends ScalatraBase
 
     protected def toSession   = { case usr: User => usr.id.get.toString }
 
-    
     protected def requireLogin() = {
       if(!isAuthenticated) {
         redirect(Route(USER,LOGIN))
       }
     }
-      
+       
     override protected def configureScentry = {
       scentry.unauthenticated { scentry.strategies("Login").unauthenticated()}
-      scentry.unauthenticated { scentry.strategies("Cookie").unauthenticated()}
     }
     
     override protected def registerAuthStrategies = {
