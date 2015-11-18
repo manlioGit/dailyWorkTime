@@ -44,7 +44,7 @@ $(document).ready(function() {
 		eventData.end = end;
 	}
 	
-	$("#submitBtn").on('click', function() {
+	$('.fa-check').parent().on('click', function() {
 
 		var title = $("option:selected").text();
 		if (title) {
@@ -61,6 +61,62 @@ $(document).ready(function() {
 		$('#timeForm').modal('hide');
 	});
 	
+	var sels = function(){
+		return $('.highlight-select')
+	}
+	
+	$(document).keydown(function(e) {
+		var current = sels()
+	    switch(e.which) {
+	        case 37: // left
+	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
+	        	$('[data-date="' + mom + '"]').removeClass("highlight-select")
+	        	
+	        	$("#calendar").fullCalendar( 'incrementDate', { days: -1 } )
+	        	
+	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
+	        	$('[data-date="' + mom + '"]').addClass("highlight-select")
+	        	
+	        break;
+
+	        case 38: // up
+	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
+	        	$('[data-date="' + mom + '"]').removeClass("highlight-select")
+	        	
+	        	$("#calendar").fullCalendar( 'incrementDate', { weeks: -1 } )
+	        	
+	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
+	        	$('[data-date="' + mom + '"]').addClass("highlight-select")
+	        break;
+
+	        case 39: // right
+	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
+	        	$('[data-date="' + mom + '"]').removeClass("highlight-select")
+	        	
+	        	$("#calendar").fullCalendar( 'incrementDate', { days:1 } )
+	        	
+	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
+	        	$('[data-date="' + mom + '"]').addClass("highlight-select")
+	        break;
+
+	        case 40: // down
+	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
+	        	$('[data-date="' + mom + '"]').removeClass("highlight-select")
+	        	
+	        	$("#calendar").fullCalendar( 'incrementDate', { weeks: 1 } )
+	        	
+	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
+	        	$('[data-date="' + mom + '"]').addClass("highlight-select")
+	        break;
+	        	
+	        case 13: //Enter
+	        	alert($("#calendar").fullCalendar('getDate').format("YYYY-MM-DD"))
+	        break;
+
+	        default: return; // exit this handler for other keys
+	    }
+	    e.preventDefault(); // prevent the default action (scroll / move caret)
+	});
 	
 	var fullCalendar = {
 			header: calendarHeader,
@@ -76,4 +132,5 @@ $(document).ready(function() {
 	
 	$("#calendar").fullCalendar(fullCalendar);
 
+	$('.fc-state-highlight').addClass("highlight-select")
 });

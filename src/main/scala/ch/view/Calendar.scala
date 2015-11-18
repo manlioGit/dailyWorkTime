@@ -139,7 +139,7 @@ class Calendar(username :String) {
 		                      input(cls:="form-control", disabled:="", placeholder:="Hour out: hh:mm", name:="timeOut")
 		                    ),
 		                    div(cls:="modal-footer")(
-		                      button(tpe:="button", id:="submitBtn", cls:="btn btn-default btn-circle")(
+		                      button(tpe:="button", cls:="btn btn-default btn-circle")(
 		                        i(cls:="fa fa-check")
 		                      ),
 		                      button(tpe:="button", cls:="btn btn-default btn-circle",data("dismiss"):="modal")(
