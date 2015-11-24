@@ -44,78 +44,21 @@ $(document).ready(function() {
 		eventData.end = end;
 	}
 	
-	$('.fa-check').parent().on('click', function() {
+	$('.fa-check').parent().on('click keyup', function(e) {
+		if(e.type == "click" || e.which == 13){
+			var title = $("option:selected").text();
+			if (title) {
+				eventData.title = title;
+				eventData.color = "green";
+				$.post('/events/create', JSON.stringify(eventData), function(){
+					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				}, 'json');
+			}
+			$('#calendar').fullCalendar('unselect');
 
-		var title = $("option:selected").text();
-		if (title) {
-			
-			eventData.title = title;
-			eventData.color = "green";
-			$.post('/events/create', JSON.stringify(eventData), function(){
-				$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-			}, 'json');
+			$('#eventForm').modal('hide');
+			$('#timeForm').modal('hide');
 		}
-		$('#calendar').fullCalendar('unselect');
-
-		$('#eventForm').modal('hide');
-		$('#timeForm').modal('hide');
-	});
-	
-	var sels = function(){
-		return $('.highlight-select')
-	}
-	
-	$(document).keydown(function(e) {
-		var current = sels()
-	    switch(e.which) {
-	        case 37: // left
-	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
-	        	$('[data-date="' + mom + '"]').removeClass("highlight-select")
-	        	
-	        	$("#calendar").fullCalendar( 'incrementDate', { days: -1 } )
-	        	
-	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
-	        	$('[data-date="' + mom + '"]').addClass("highlight-select")
-	        	
-	        break;
-
-	        case 38: // up
-	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
-	        	$('[data-date="' + mom + '"]').removeClass("highlight-select")
-	        	
-	        	$("#calendar").fullCalendar( 'incrementDate', { weeks: -1 } )
-	        	
-	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
-	        	$('[data-date="' + mom + '"]').addClass("highlight-select")
-	        break;
-
-	        case 39: // right
-	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
-	        	$('[data-date="' + mom + '"]').removeClass("highlight-select")
-	        	
-	        	$("#calendar").fullCalendar( 'incrementDate', { days:1 } )
-	        	
-	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
-	        	$('[data-date="' + mom + '"]').addClass("highlight-select")
-	        break;
-
-	        case 40: // down
-	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
-	        	$('[data-date="' + mom + '"]').removeClass("highlight-select")
-	        	
-	        	$("#calendar").fullCalendar( 'incrementDate', { weeks: 1 } )
-	        	
-	        	var mom = $("#calendar").fullCalendar('getDate').format("YYYY-MM-DD")
-	        	$('[data-date="' + mom + '"]').addClass("highlight-select")
-	        break;
-	        	
-	        case 13: //Enter
-	        	alert($("#calendar").fullCalendar('getDate').format("YYYY-MM-DD"))
-	        break;
-
-	        default: return; // exit this handler for other keys
-	    }
-	    e.preventDefault(); // prevent the default action (scroll / move caret)
 	});
 	
 	var fullCalendar = {
@@ -131,6 +74,45 @@ $(document).ready(function() {
 		}
 	
 	$("#calendar").fullCalendar(fullCalendar);
-
-	$('.fc-state-highlight').addClass("highlight-select")
+	
+	function currentDay(){
+		return  $("#calendar").fullCalendar('getDate');
+	}
+	
+	function move(howMuch){
+    	$('[data-date="' + currentDay().format("YYYY-MM-DD") + '"]').removeClass("highlight-select");
+    	
+    	$("#calendar").fullCalendar( 'incrementDate', howMuch );
+    	
+    	$('[data-date="' + currentDay().format("YYYY-MM-DD") + '"]').addClass("highlight-select");
+	}
+	
+	function partial(f, h){
+		var args = [].slice.call(arguments, 1);
+		return function() {
+			f.apply(this, args.concat([].slice.call(arguments, 0)));
+		}
+	}
+	
+	$(document).keydown(function(e) {
+	
+		var map = {
+			37: partial(move, { days:  -1 }),
+			38: partial(move, { weeks: -1 }),
+			39: partial(move, { days:   1 }),
+			40: partial(move, { weeks:  1 }),
+			13: function () {
+				var start = currentDay();
+				var end = start.clone().add(1,'days');
+				$("#calendar").fullCalendar('select', start, end);
+			}
+		}
+		
+		var key = e.which;
+		if(key in map) {
+			map[key]();
+			e.preventDefault(); 
+		}
+	});
 });
+
