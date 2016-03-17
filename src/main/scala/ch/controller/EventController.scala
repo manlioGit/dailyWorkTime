@@ -8,7 +8,7 @@ import ch.model.Event
 import ch.model.User
 import ch.model.data.Driver.simple._
 
-class EventController(implicit session: Session) extends MainStack with JacksonJsonSupport {
+class EventController(implicit session: Session) extends MainStack /*with JacksonJsonSupport*/ {
   
   implicit val jsonFormats = DefaultFormats
 
@@ -26,7 +26,7 @@ class EventController(implicit session: Session) extends MainStack with JacksonJ
   }
   
   post("/create"){
-
+    "yay!"
     
   }
 }

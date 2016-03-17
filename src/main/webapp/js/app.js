@@ -10,17 +10,24 @@ $(document).ready(function() {
 	$('#timeForm').on('shown.bs.modal', function () {
   		$('#timeIn').focus();
 	});
-
-	$('#toTimeFormBtn').click(function () {
-		$('#eventForm').modal('hide');
-		$('#timeForm').modal('show');
+	
+	$(document).on('click', '.btn.btn-default.btn-circle', function () {
+	    $('#timeForm').remove();
 	});
 	
-	$('#toEventForm').click(function () {
-		$('#timeForm').modal('hide');
-		$('#eventForm').modal('show');
+	$(document).on('click', '#switch', function () {
+		var kind = $(this).attr("data-next")
+	    modal(kind);
 	});
 
+	function modal(kind){
+		$.post('/pages/modal/' + kind, function( data ) {
+	    	$('#timeForm').remove();
+	    	$( "body" ).append( data );
+			$("#timeForm").modal('show');
+		});
+	}
+	
 	function dayRender(date, cell){
 		
 		var classValue = $(cell).attr('class');
@@ -32,12 +39,16 @@ $(document).ready(function() {
 	function select(start, end) {
 		
 		if(start.isSame(end.clone().subtract(1,'days'))){
-			$("#timeForm").modal('show');
-			$("#toTimeFormBtn").show();
+			modal("single");
+
+			eventData.title = "work shift";
+			eventData.color = "green";
 		} 
 		else {
-			$("#eventForm").modal('show');
-			$("#toTimeFormBtn").hide();
+			modal("period");
+			
+			eventData.title = $("option:selected").text();
+			eventData.color = "red";
 		}
 		
 		eventData.start = start;
@@ -46,14 +57,11 @@ $(document).ready(function() {
 	
 	$('.fa-check').parent().on('click keyup', function(e) {
 		if(e.type == "click" || e.which == 13){
-			var title = $("option:selected").text();
-			if (title) {
-				eventData.title = title;
-				eventData.color = "green";
-				$.post('/events/create', JSON.stringify(eventData), function(){
-					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-				}, 'json');
-			}
+			
+			$.post('/events/create', JSON.stringify(eventData), function(){
+				$('#calendar').fullCalendar('renderEvent', eventData, true); 
+			});
+
 			$('#calendar').fullCalendar('unselect');
 
 			$('#eventForm').modal('hide');

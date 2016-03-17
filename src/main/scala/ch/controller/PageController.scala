@@ -9,6 +9,7 @@ import ch.view.Calendar
 import ch.auth.AuthenticationSupport
 import ch.model.data.Driver.simple._
 import ch.model.Users
+import ch.view.Modal
 
 class PageController(implicit session :Session) extends MainStack {
 
@@ -20,5 +21,11 @@ class PageController(implicit session :Session) extends MainStack {
     contentType = "text/html"
     
     "<!DOCTYPE html>" + new Calendar(user.name).build()
+  }
+  
+  post("/modal/:kind"){
+     contentType = "text/html"
+     
+     new Modal(params("kind")).build
   }
 }

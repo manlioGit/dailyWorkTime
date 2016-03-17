@@ -1,5 +1,4 @@
-addSbtPlugin("org.scalatra.sbt" % "scalatra-sbt" % "0.3.5")
+addSbtPlugin("org.scalatra.sbt" % "scalatra-sbt" % "0.5.1")
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "3.0.0")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-start-script" % "0.10.0")
