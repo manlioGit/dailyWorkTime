@@ -1,12 +1,13 @@
 package ch.view
 
 import scalatags.Text.all._
+import scala.util.Random
 
 object Header {
   
    def scripts(s:String*) :List[Tag] = {
      (List("jquery.min","bootstrap.min","metisMenu.min", "validator.min", "sb-admin-2") ++ s).
-       map { s =>  script(src:=s"../js/${s}.js") }
+       map { s =>  script(src:=s"../js/${s}.js?" + Random.nextInt(Integer.MAX_VALUE)) }
    }
    
    def links(s:String*) : List[Tag] = {

@@ -8,7 +8,7 @@ import ch.model.Event
 import ch.model.User
 import ch.model.data.Driver.simple._
 
-class EventController(implicit session: Session) extends MainStack /*with JacksonJsonSupport*/ {
+class EventController(implicit session: Session) extends MainStack with JacksonJsonSupport {
   
   implicit val jsonFormats = DefaultFormats
 
@@ -18,8 +18,12 @@ class EventController(implicit session: Session) extends MainStack /*with Jackso
   
   get("/holiday") {
     val holidayJson = JArray(List(
-        ("title" -> "xxx") ~
-        ("start" -> "2015-05-15")
+        ("title" -> "Pasqua") ~
+        ("start" -> "2016-03-27") ~
+        ("action" -> "background"),
+        ("title" -> "Pasquetta") ~
+        ("start" -> "2016-03-28") ~
+        ("action" -> "background")
       )
     ) 
     holidayJson

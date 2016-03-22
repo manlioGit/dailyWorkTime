@@ -23,9 +23,14 @@ class PageController(implicit session :Session) extends MainStack {
     "<!DOCTYPE html>" + new Calendar(user.name).build()
   }
   
-  post("/modal/:kind"){
+  post("/modal/:kind/:switch?"){
      contentType = "text/html"
      
-     new Modal(params("kind")).build
+     val switch = params.get("switch") match {
+      case Some("false") => false
+      case _ => true
+     } 
+     
+     new Modal(params("kind"), switch).build 
   }
 }

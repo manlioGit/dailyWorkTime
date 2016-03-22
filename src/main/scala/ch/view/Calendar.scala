@@ -15,7 +15,7 @@ class Calendar(username :String) {
   def build()={
     
     new Layout("Calendar",
-        scripts("moment.min","fullcalendar.min", "app"),
+        scripts("moment.min","fullcalendar.min", "app", "calendar"),
         links("fullcalendar.min.css", "app.css")).
       render(
           div(id:="wrapper")(

@@ -1,3 +1,8 @@
 td.fc-widget-content.highlight-select {
   background-color: rgba(10, 108, 158, 0.2) !important;
 }
+
+/*fix bootstrap modal scrollbar disappear */
+.modal-open {
+    overflow-y: scroll;
+}
