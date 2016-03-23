@@ -13,13 +13,16 @@ class Modal(kind: String, switch: Boolean){
     val next  = Map("single" -> "period", "period" -> "single")
     val elements  = Map("single" -> Seq(
                                          div(cls:="form-group")(
-                                            input(tpe:="text",cls:="form-control", placeholder:="Hour in: hh:mm", name:="timeIn", pattern:="^[0-2][0-9]:[0-9][0-9]", maxlength:="5",required)
+                                            input(tpe:="text",cls:="form-control", placeholder:="Hour in: hh:mm", name:="timeIn", 
+                                                  pattern:="^[0-2][0-9]:[0-9][0-9]", maxlength:="5",  data.error:="Please, fill correct time..", required),
+                                            div(cls:="help-block with-errors")
                                           ),
                                           div(cls:="form-group")(
-                                            input(cls:="form-control", placeholder:="Pause: mm", name:="pause")
+                                            input(cls:="form-control", placeholder:="Pause: mm", name:="pause", required)
                                           ),
                                           div(cls:="form-group")(
-                                            input(cls:="form-control", placeholder:="Hour out: hh:mm", name:="timeOut")
+                                            input(cls:="form-control", placeholder:="Hour out: hh:mm", name:="timeOut", pattern:="^[0-2][0-9]:[0-9][0-9]", maxlength:="5",required),
+                                            div(cls:="help-block with-errors")
                                           ),
                                           option(hidden, "Work Shift", data.color:="green", selected)
                                         ), 
@@ -58,7 +61,7 @@ class Modal(kind: String, switch: Boolean){
               h3(cls:="panel-title modal-title")(title(kind))
             ),
             div(cls:="modal-body")(
-              form(role:="form",data("toggle"):="validator")(
+              form(role:="form")(
                 fieldset(
                   elements(kind)
                   ,

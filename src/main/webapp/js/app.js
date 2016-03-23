@@ -6,6 +6,7 @@ $(document).ready(function() {
 		    	$('#timeForm').remove();
 		    	$( "body" ).append( data );
 				$("#timeForm").modal('show');
+				$("#timeForm").validator();
 			});
 		}
 	}
