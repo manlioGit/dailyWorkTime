@@ -34,6 +34,15 @@ var createCalendar = function (page, eventData) {
 		getDate: function() {
 			return $("#calendar").fullCalendar('getDate');
 		},
+		eventClick: function (event, jsEvent) {
+	       $(this).popover({
+	            title: event.name,
+	            placement: 'right',
+	            html: true,
+	            content: 'start: ' + event.start.format("DD-MM-YYYY hh:mm") + '<br/> end: ' + event.end.format("DD-MM-YYYY hh:mm") + '<br/><a href="">delete?</a>'
+	        });
+	       return false;
+		},
 		move: function (howMuch){
 	    	$('[data-date="' + createCalendar().getDate().format("YYYY-MM-DD") + '"]').removeClass("highlight-select");
 	    	
