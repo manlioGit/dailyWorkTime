@@ -9,7 +9,7 @@ var createCalendar = function (page, eventData) {
 		                { url: '/events/holiday', backgroundColor: dayOffColor, textColor: 'black',  borderColor: dayOffColor } 
 	                  ],
 		selectable: true,
-		editable: true,
+		editable: false,
 		eventLimit: true,
 		eventAfterRender: function(event, element, view) {
 			if(event.action == "background") {
@@ -34,14 +34,23 @@ var createCalendar = function (page, eventData) {
 		getDate: function() {
 			return $("#calendar").fullCalendar('getDate');
 		},
-		eventClick: function (event, jsEvent) {
-	       $(this).popover({
+		eventMouseover: function (event, jsEvent) {
+			
+			$(this).popover({
 	            title: event.name,
 	            placement: 'right',
-	            html: true,
-	            content: 'start: ' + event.start.format("DD-MM-YYYY hh:mm") + '<br/> end: ' + event.end.format("DD-MM-YYYY hh:mm") + '<br/><a href="">delete?</a>'
+	            trigger: 'hover',
+	            content: '<p>start: ' + event.start.format("DD-MM-YYYY hh:mm") + '<br/> end: ' + event.end.format("DD-MM-YYYY hh:mm") + '</p><br/><a href="">delete?</a>',
+	            container: $(this).css( "color", "black" ),
+                delay: { show: 200, hide: 100 },
+                animation: true,
+	            html: true
 	        });
+	       
 	       return false;
+		},
+		eventMouseout: function( event, jsEvent, view ) { 
+			$(this).popover('hide');
 		},
 		move: function (howMuch){
 	    	$('[data-date="' + createCalendar().getDate().format("YYYY-MM-DD") + '"]').removeClass("highlight-select");
