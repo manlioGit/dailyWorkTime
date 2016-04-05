@@ -6,3 +6,7 @@ td.fc-widget-content.highlight-select {
 .modal-open {
     overflow-y: scroll;
 }
+
+.popover.right>.arrow:after {
+	border-style:none;
+}

@@ -20,9 +20,11 @@ class EventController(implicit session: Session) extends MainStack with JacksonJ
     val holidayJson = JArray(List(
         ("title" -> "Pasqua") ~
         ("start" -> "2016-03-27") ~
+        ("end" -> "2016-03-27") ~
         ("action" -> "background"),
         ("title" -> "Pasquetta") ~
         ("start" -> "2016-03-28") ~
+        ("end" -> "2016-03-28") ~
         ("action" -> "background")
       )
     ) 

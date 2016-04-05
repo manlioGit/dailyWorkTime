@@ -1,63 +1,71 @@
-var createCalendar = function (page, eventData) {
+function Calendar(modal) {
+	
 	var dayOffColor = '#f8f8f8';
 	
-	return {
-		header: {left: 'prev today', center: 'title', right: 'next'},
-		firstDay: 1,
-		fixedWeekCount: false,
-		eventSources: [ 
-		                { url: '/events/holiday', backgroundColor: dayOffColor, textColor: 'black',  borderColor: dayOffColor } 
-	                  ],
-		selectable: true,
-		editable: false,
-		eventLimit: true,
-		eventAfterRender: function(event, element, view) {
-			if(event.action == "background") {
-				$("td[data-date='" + event.start.format("YYYY-MM-DD") + "']").css("background-color", dayOffColor);
-			}
-		},
-		eventAfterAllRender : function(view){
-			$("td[class~='fc-sat'],td[class~='fc-sun']").css("background-color", dayOffColor);
-		},
-		select: function (start, end) {
-			
-			if(end.diff(start, 'days') <= 1){
-				page.modal("single");
-			} 
-			else {
-				page.modal("period", false);
-			}
-			
-			eventData.start = start;
-			eventData.end = end;
-		},
-		getDate: function() {
-			return $("#calendar").fullCalendar('getDate');
-		},
-		eventMouseover: function (event, jsEvent) {
-			
-			$(this).popover({
-	            title: event.name,
-	            placement: 'right',
-	            trigger: 'hover',
-	            content: '<p>start: ' + event.start.format("DD-MM-YYYY hh:mm") + '<br/> end: ' + event.end.format("DD-MM-YYYY hh:mm") + '</p><br/><a href="">delete?</a>',
-	            container: $(this).css( "color", "black" ),
-                delay: { show: 200, hide: 100 },
-                animation: true,
-	            html: true
-	        });
-	       
-	       return false;
-		},
-		eventMouseout: function( event, jsEvent, view ) { 
-			$(this).popover('hide');
-		},
-		move: function (howMuch){
-	    	$('[data-date="' + createCalendar().getDate().format("YYYY-MM-DD") + '"]').removeClass("highlight-select");
-	    	
-	    	$("#calendar").fullCalendar( 'incrementDate', howMuch );
-	    	
-	    	$('[data-date="' + createCalendar().getDate().format("YYYY-MM-DD") + '"]').addClass("highlight-select");
-		}
+	function popOver(event){
+		return 'start: ' + event.start.format("DD-MM-YYYY HH:mm") + '<br/>' + 
+		       'end:   ' + event.end.format("DD-MM-YYYY HH:mm") + '<br/>' + 
+		       '<a href="">delete</a> <a href="">cancel</a>';
 	}
-};
+	
+	var thisRef = this;
+
+	this.header = {left: 'prev today', center: 'title', right: 'next'};
+	this.firstDay = 1;
+	this.fixedWeekCount = false;
+	this.eventSources = [ 
+	                { url: '/events/holiday', backgroundColor: dayOffColor, textColor: 'black',  borderColor: dayOffColor } 
+                  ];
+	this.selectable = true;
+	this.editable = false;
+	this.eventLimit = true;
+	this.timeFormat = 'H(:mm)';
+	this.displayEventEnd = true;
+	this.eventClick = function (event, jsEvent) {
+		$(this).popover({
+            title: event.name,
+            placement: 'right',
+            trigger: 'manual',
+            content: popOver(event),
+            container: '#calendar',
+            delay: { show: 0, hide: 100 },
+            animation: true,
+            html: true
+        }).popover('toggle');
+	};
+	this.eventAfterRender = function(event, element, view) {
+		if(event.action == "background") {
+			$("td[data-date='" + event.start.format("YYYY-MM-DD") + "']").css("background-color", dayOffColor);
+		}
+	};
+	this.eventAfterAllRender  = function(view){
+		$("td[class~='fc-sat'],td[class~='fc-sun']").css("background-color", dayOffColor);
+	};
+	this.select = function (start, end) {
+		
+		$('.popover').popover('hide');
+		
+		thisRef.start = start;
+
+		if(end.diff(start, 'days') <= 1){
+			modal("single");
+			thisRef.end = start;
+		} 
+		else {
+			modal("period", false);
+			thisRef.end = end;
+		}
+	};
+	this.getDate = function() {
+		return $("#calendar").fullCalendar('getDate');
+	};
+	this.move = function (howMuch){
+    	$('[data-date="' + thisRef.getDate().format("YYYY-MM-DD") + '"]').removeClass("highlight-select");
+    	
+    	$("#calendar").fullCalendar( 'incrementDate', howMuch );
+    	
+    	$('[data-date="' + thisRef.getDate().format("YYYY-MM-DD") + '"]').addClass("highlight-select");
+	};
+}
+
+
