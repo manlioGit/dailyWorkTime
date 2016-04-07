@@ -2,31 +2,12 @@ $(document).ready(function() {
 	
 	function modal(kind, switchButton){
 		$.post('/pages/modal/' + kind + '/' + switchButton, function( data ) {
-	    	$('#timeForm').remove();
+			$('#timeForm').validator('destroy');
+			$('#timeForm').remove();
 	    	$( "body" ).append( data );
 			$("#timeForm").modal('show');
 			$("#timeForm").validator();
 		});
-	}
-	
-	function Event(attr, calendar) {
-		
-		function appendHour(time, selector){
-			var value = $(selector).val();
-			if(value != undefined) {
-				return moment(time.format("YYYY-MM-DD") + " " + value, "YYYY-MM-DD HH:mm" );
-			} else {
-				return time;
-			}
-		}
-		
-		this.title = $( attr ).text();
-		this.color = $( attr ).attr('data-color');
-		this.start = appendHour(calendar.start, 'input[name=timeIn]');
-		this.end = appendHour(calendar.end, 'input[name=timeOut]');
-		this.isValid = function(){
-			
-		};
 	}
 	
 	var c = new Calendar(modal);
@@ -48,17 +29,16 @@ $(document).ready(function() {
 	
 	$(document).on('click keyup', '[data-submit="modal"]', function(e) {
 		
-		if (!e.isDefaultPrevented()) {
-			if(e.type == "click" || e.which == 13){
-				
-				var eventData = new Event("option:selected", c);
-				
+		if(e.type == "click" || e.which == 13){
+			
+			var eventData = new Event("option:selected", c);
+			if(eventData.isValid()) {
 				$.post('/events/create', JSON.stringify(eventData), function(){
 					$('#calendar').fullCalendar('renderEvent', eventData, true); 
 				});
-	
+				
 				$('#calendar').fullCalendar('unselect');
-	
+				
 				$('#timeForm').remove();
 			}
 		}
