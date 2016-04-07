@@ -24,6 +24,7 @@ $(document).ready(function() {
 	});
 	
 	$(document).on('hidden.bs.modal', function () {
+		$('#timeForm').validator('destroy');
 	    $('#timeForm').remove();
 	});
 	
