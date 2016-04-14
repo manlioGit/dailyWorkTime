@@ -3,6 +3,7 @@ import Keys._
 import org.scalatra.sbt._
 import org.scalatra.sbt.PluginKeys._
 import com.earldouglas.xwp.JettyPlugin
+import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
 
 object DbBuild extends Build {
   val Organization = "com.example"
@@ -35,7 +36,7 @@ object DbBuild extends Build {
         "com.lihaoyi" %% "scalatags" % "0.5.4",
         "org.scalatra" %% "scalatra-scalatest" % ScalatraVersion % "test",
         "ch.qos.logback" % "logback-classic" % "1.1.2" % "runtime",
-        "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
+        "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "compile;container",
         "javax.servlet" % "javax.servlet-api" % "3.1.0",
       	"com.typesafe.slick" %% "slick" % "3.0.0",
         "org.slf4j" % "slf4j-nop" % "1.6.4",
@@ -46,5 +47,6 @@ object DbBuild extends Build {
         "org.scalatra" %% "scalatra-auth" % ScalatraVersion
       )
     )
-  ).enablePlugins(JettyPlugin)
+  ).enablePlugins(JavaAppPackaging)
+  .enablePlugins(JettyPlugin)
 }
