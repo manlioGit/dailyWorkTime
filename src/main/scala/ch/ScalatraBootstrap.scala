@@ -8,6 +8,7 @@ import org.scalatra.servlet.ScalatraListener
 import scala.concurrent._
 import slick.jdbc.meta.MTable
 import scala.concurrent.duration.Duration
+import ch.model.data.Driver
 
 class ScalatraBootstrap extends LifeCycle {
   
@@ -15,7 +16,7 @@ class ScalatraBootstrap extends LifeCycle {
   
   override def init(context: ServletContext) {
    
-	  val db = Database.forConfig("local")
+	val db = Database.forConfig(Driver.configuration)
 	  
     session = db.createSession()
 

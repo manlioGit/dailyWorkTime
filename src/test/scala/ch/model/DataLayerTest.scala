@@ -6,7 +6,7 @@ import ch.model.data.Driver.simple._
 import org.scalatra.test.scalatest.ScalatraSuite
  
 class DataLayerTest extends TestSupport {
-
+  
   override def beforeEach(){
     (Users.table.schema ++ Events.table.schema).create	  
   }

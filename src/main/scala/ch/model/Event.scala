@@ -14,19 +14,19 @@ object Events {
   }
 }
 
-class Events(tag: Tag) extends Table[Event](tag, "EVENTS") {
+class Events(tag: Tag) extends Table[Event](tag, "events") {
   
   implicit val dateMapper = MappedColumnType.base[DateTime, Date] (
     dateTime => new Date(dateTime.getMillis),
     date => new DateTime(date)
   )
   
-  def title = column[String]("TITLE")
-  def start = column[DateTime]("START")
-  def end = column[DateTime]("END")
-  def url = column[Option[String]]("URL")
-  def userId = column[Int]("USER_ID")
-  def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
+  def title = column[String]("title")
+  def start = column[DateTime]("start")
+  def end = column[DateTime]("end")
+  def url = column[Option[String]]("url")
+  def userId = column[Int]("user_id")
+  def id = column[Int]("id", O.PrimaryKey)
   
   def user = foreignKey("SUP_FK", userId, TableQuery[Users])(_.id)
   

@@ -1,4 +1,4 @@
-package ch
+package ch.db
 
 import ch.model.data.Driver.simple._
 import ch.model._

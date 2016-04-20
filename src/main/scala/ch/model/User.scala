@@ -27,19 +27,19 @@ object Users {
   }
 }
 
-class Users(tag: Tag) extends Table[User](tag, "USERS") {
+class Users(tag: Tag) extends Table[User](tag, "users") {
   
   implicit val roleMapper = MappedColumnType.base[Role, String] (
       r => r.toString,
       r => Role.withName(r)
   )
   
-  def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
-  def name = column[String]("NAME")
-  def role = column[Role]("ROLE")
-  def pwd = column[String]("PWD")
-  def session = column[String]("SESSION")
+  def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+  def name = column[String]("name")
+  def role = column[Role]("role")
+  def pwd = column[String]("pwd")
+  def session = column[String]("session")
   
-  def * = (name, role, pwd, session,  id.?) <> (User.tupled, User.unapply)
+  def * = (name, role, pwd, session, id.?) <> (User.tupled, User.unapply)
 }
 

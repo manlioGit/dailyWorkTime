@@ -41,6 +41,7 @@ object DbBuild extends Build {
       	"com.typesafe.slick" %% "slick" % "3.0.0",
         "org.slf4j" % "slf4j-nop" % "1.6.4",
       	"org.xerial" % "sqlite-jdbc" % "3.8.11.2",
+      	"org.postgresql" % "postgresql" % "9.4.1208.jre7",
         "org.scalatra" %% "scalatra-json" % ScalatraVersion,
         "org.json4s"   %% "json4s-jackson" % "3.3.0",
         "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",

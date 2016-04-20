@@ -2,16 +2,18 @@ package ch.model.data
 
 import com.typesafe.config.ConfigFactory
 import scala.slick.driver.{SQLiteDriver, JdbcDriver, MySQLDriver}
-//http://stackoverflow.com/questions/13661339/how-to-write-database-agnostic-play-application-and-perform-first-time-database/19061993#19061993
+import slick.driver.PostgresDriver
+
 object Driver {
+  
   val simple = profile.simple
+  
   lazy val profile: JdbcDriver = {
-    sys.env.get("DB_ENVIRONMENT") match {
-      case Some(e) => ConfigFactory.load().getString(s"$e.slickDriver") match {
-        case "scala.slick.driver.SQLiteDriver" => SQLiteDriver
-        case "scala.slick.driver.MySQLDriver" => MySQLDriver
-      }
-      case _ => SQLiteDriver
+    configuration match {
+      case "production" => PostgresDriver
+      case "local" => SQLiteDriver
     }
   }
+  
+  def configuration: String = sys.env.get("DB_ENVIRONMENT").getOrElse("local")
 }
