@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/dailyWorkTime -Dhttp.port=$PORT -Dother.prop=someValue
+web: target/universal/stage/bin/dailyWorkTime -Dhttp.port=$PORT
