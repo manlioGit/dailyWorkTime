@@ -40,7 +40,7 @@ object DbBuild extends Build {
         "javax.servlet" % "javax.servlet-api" % "3.1.0",
       	"com.typesafe.slick" %% "slick" % "3.0.0",
         "org.slf4j" % "slf4j-nop" % "1.6.4",
-      	"org.xerial" % "sqlite-jdbc" % "3.8.11.2",
+      	"org.xerial" % "sqlite-jdbc" % "3.8.11.2" % "test",
       	"org.postgresql" % "postgresql" % "9.4.1208.jre7",
         "org.scalatra" %% "scalatra-json" % ScalatraVersion,
         "org.json4s"   %% "json4s-jackson" % "3.3.0",

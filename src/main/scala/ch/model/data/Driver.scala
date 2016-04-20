@@ -11,9 +11,10 @@ object Driver {
   lazy val profile: JdbcDriver = {
     configuration match {
       case "production" => PostgresDriver
-      case "local" => SQLiteDriver
+      case "local" => PostgresDriver
+      case "test" => SQLiteDriver
     }
   }
   
-  def configuration: String = sys.env.get("DB_ENVIRONMENT").getOrElse("local")
+  def configuration: String = sys.env.get("DB_ENVIRONMENT").getOrElse("test")
 }

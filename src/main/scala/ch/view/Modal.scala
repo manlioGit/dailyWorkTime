@@ -30,9 +30,9 @@ class Modal(kind: String, switch: Boolean){
                                         div(cls:="form-group")(
                                           label("Event Type:"),
                               					    select(cls:="form-control")(
-                              					    	option("Holiday", data.color:="red"),
-                              					    	option("Illness", data.color:="blue"),
-                              					    	option("Permission", data.color:="yellow")					
+                              					    	option("Holiday", data.color:="#0267bd"),
+                              					    	option("Illness", data.color:="#ba146a"),
+                              					    	option("Permission", data.color:="#bf2014")					
                               					    )
                   		                    )
                                         )

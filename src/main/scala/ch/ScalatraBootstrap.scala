@@ -16,6 +16,7 @@ class ScalatraBootstrap extends LifeCycle {
   
   override def init(context: ServletContext) {
    
+	  println(Driver.configuration)
 	val db = Database.forConfig(Driver.configuration)
 	  
     session = db.createSession()
