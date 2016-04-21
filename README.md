@@ -1,40 +1,13 @@
 # dailyWorkTime #
 
-## Project setup ##
-```sh
-$ mkdir -p ~/git/trunk
-$ cd ~/git/trunk
-$ git clone https://github.com/GmTech/dailyWorkTime.git
-$ cd dailyWorkTime
-$ ./sbt -java-home /usr/lib/jvm/java-7-oracle
-```
+Demo project to record events using:
+* [Scalatra](http://scalatra.org)
+* [ScalaTags](https://github.com/lihaoyi/scalatags)
+* [Slick](http://slick.typesafe.com)
 
-## Eclipse setup ##
-* generate project file
-```sh
-> eclipse
-```
-* import project as 'Projects from git' -> Existing local repository -> ... Import existing projects ...
-* be sure to use java7 as JRE System Library
+At the moment you can:
+* Register and login, data are persisted on db
+* Interact with calendar, no events is persisted on db
 
-###### Javascript/JQuery Integration ######
-* right click on project -> configure -> Convert to Javascript project
-* install jsdt-jquery using [these instructions](https://code.google.com/a/eclipselabs.org/p/jsdt-jquery/wiki/Installation), select version 2.1 of jquery library
-* exclude compile error of minified js files
-  * right click on project -> javascript -> include path -> source tab 
-  * edit 'Excluded' node and in 'Exclusion pattern' add src/main/webapp/js/*.min.js
+[Try it!](https://dailyworktime.herokuapp.com) [heroku free plan gives 18hr/day uptime]
 
-## Launch application ##
-```sh
-> ~;container:start; container:reload /
-```
-* browse to [localhost:8080](http://localhost:8080)
-
-## Useful reading ##
-* http://docs.scala-lang.org/tutorials/scala-for-java-programmers.html
-* http://scalatra.org/2.4/guides/
-* http://eloquentjavascript.net/
-* https://rogerdudler.github.io/git-guide/
-  * http://git.or.cz/course/svn.html
-  * http://www.git-tower.com/blog/git-for-subversion-users-cheat-sheet/
-* http://fullcalendar.io/docs/
