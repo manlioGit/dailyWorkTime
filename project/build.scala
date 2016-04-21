@@ -19,7 +19,6 @@ object DbBuild extends Build {
 //  }
 
   unmanagedSourceDirectories in Compile := (scalaSource in Compile).value :: Nil
-
   
   lazy val project = Project (
     "dailyWorkTime",
@@ -37,6 +36,7 @@ object DbBuild extends Build {
         "org.scalatra" %% "scalatra-scalatest" % ScalatraVersion % "test",
         "ch.qos.logback" % "logback-classic" % "1.1.2" % "runtime",
         "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "compile;container",
+        "org.eclipse.jetty" % "jetty-plus" % "9.2.15.v20160210" % "compile;container",
         "javax.servlet" % "javax.servlet-api" % "3.1.0",
       	"com.typesafe.slick" %% "slick" % "3.0.0",
         "org.slf4j" % "slf4j-nop" % "1.6.4",
